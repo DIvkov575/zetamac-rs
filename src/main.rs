@@ -11,23 +11,16 @@ use ratatui::{
     widgets::{Block, Borders, Gauge, List, ListItem, Paragraph},
     Frame, Terminal,
 };
-use rand::Rng;
-use std::{
-    io,
-    time::{Duration, Instant},
-};
+use crate::app::App;
+use crate::app_state::AppState;
+use std::io;
+use std::time::Duration;
 
 mod app;
+mod app_state;
 mod operation;
 mod question;
 mod testconfig;
-mod app_state;
-
-use app::*;
-use operation::*;
-use question::*;
-use testconfig::*;
-use app_state::*;
 
 
 

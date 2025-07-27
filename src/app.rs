@@ -1,4 +1,10 @@
 
+use crate::app_state::AppState;
+use crate::question::Question;
+use crate::testconfig::TestConfig;
+use std::time::Instant;
+
+#[derive(Default)]
 pub struct App {
     pub config: TestConfig,
     pub state: AppState,
@@ -12,24 +18,12 @@ pub struct App {
     pub config_input_started: bool,
 }
 
-
 impl App {
     pub fn new() -> Self {
-        Self {
-            config: TestConfig::default(),
-            state: AppState::Configuration,
-            selected_config_item: 0,
-            questions_answered: 0,
-            current_question: None,
-            user_answer: String::new(),
-            start_time: None,
-            editing_config: false,
-            config_input: String::new(),
-            config_input_started: false,
-        }
+        Self::default()
     }
 
-    fn start_test(&mut self) {
+    pub fn start_test(&mut self) {
         self.questions_answered = 0;
         self.user_answer.clear();
         self.current_question = Some(Question::new(&self.config));
@@ -37,7 +31,7 @@ impl App {
         self.start_time = Some(Instant::now());
     }
 
-    fn submit_answer(&mut self) {
+    pub fn submit_answer(&mut self) {
         if let Some(question) = &self.current_question {
             if let Ok(answer) = self.user_answer.parse::<i32>() {
                 if answer == question.correct_answer {
@@ -55,7 +49,7 @@ impl App {
         }
     }
 
-    fn time_remaining(&self) -> u64 {
+    pub fn time_remaining(&self) -> u64 {
         if let Some(start_time) = self.start_time {
             let elapsed = start_time.elapsed().as_secs();
             if elapsed >= self.config.time_limit {
@@ -68,11 +62,11 @@ impl App {
         }
     }
 
-    fn is_time_up(&self) -> bool {
+    pub fn is_time_up(&self) -> bool {
         self.time_remaining() == 0
     }
 
-    fn get_config_value(&self, index: usize) -> i32 {
+    pub fn get_config_value(&self, index: usize) -> i32 {
         match index {
             0 => self.config.add_min_a,
             1 => self.config.add_max_a,
@@ -87,7 +81,7 @@ impl App {
         }
     }
 
-    fn set_config_value(&mut self, index: usize, value: i32) {
+    pub fn set_config_value(&mut self, index: usize, value: i32) {
         match index {
             0 => self.config.add_min_a = value,
             1 => self.config.add_max_a = value,
@@ -102,7 +96,7 @@ impl App {
         }
     }
 
-    fn get_config_label(&self, index: usize) -> &str {
+    pub fn get_config_label(&self, index: usize) -> &str {
         match index {
             0 => "Addition Min A",
             1 => "Addition Max A",
@@ -118,13 +112,13 @@ impl App {
         }
     }
 
-    fn start_editing(&mut self) {
+    pub fn start_editing(&mut self) {
         self.editing_config = true;
         self.config_input = self.get_config_value(self.selected_config_item).to_string();
         self.config_input_started = false;
     }
 
-    fn finish_editing(&mut self) {
+    pub fn finish_editing(&mut self) {
         if let Ok(value) = self.config_input.parse::<i32>() {
             if value > 0 {
                 self.set_config_value(self.selected_config_item, value);
@@ -135,7 +129,7 @@ impl App {
         self.config_input_started = false;
     }
 
-    fn cancel_editing(&mut self) {
+    pub fn cancel_editing(&mut self) {
         self.editing_config = false;
         self.config_input.clear();
         self.config_input_started = false;

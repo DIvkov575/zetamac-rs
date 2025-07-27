@@ -1,14 +1,14 @@
 #[derive(Clone)]
 pub struct TestConfig {
-    add_min_a: i32,
-    add_max_a: i32,
-    add_min_b: i32,
-    add_max_b: i32,
-    mul_min_a: i32,
-    mul_max_a: i32,
-    mul_min_b: i32,
-    mul_max_b: i32,
-    time_limit: u64,
+    pub add_min_a: i32,
+    pub add_max_a: i32,
+    pub add_min_b: i32,
+    pub add_max_b: i32,
+    pub mul_min_a: i32,
+    pub mul_max_a: i32,
+    pub mul_min_b: i32,
+    pub mul_max_b: i32,
+    pub time_limit: u64,
 }
 
 

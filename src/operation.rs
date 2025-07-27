@@ -1,3 +1,5 @@
+use rand::Rng;
+
 #[derive(Clone, PartialEq)]
 pub enum Operation {
     Addition,
@@ -7,7 +9,7 @@ pub enum Operation {
 }
 
 impl Operation {
-    fn symbol(&self) -> &str {
+    pub fn symbol(&self) -> &str {
         match self {
             Operation::Addition => "+",
             Operation::Subtraction => "-",
@@ -16,9 +18,9 @@ impl Operation {
         }
     }
 
-    fn random() -> Self {
-        let mut rng = rand::rng();
-        match rng.random_range(0..4) {
+    pub fn random() -> Self {
+        let mut rng = rand::thread_rng();
+        match rng.gen_range(0..4) {
             0 => Operation::Addition,
             1 => Operation::Subtraction,
             2 => Operation::Multiplication,
