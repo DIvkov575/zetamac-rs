@@ -69,15 +69,15 @@ enum AppState {
 impl Default for TestConfig {
     fn default() -> Self {
         Self {
-            add_min_a: 1,
-            add_max_a: 10,
-            add_min_b: 1,
-            add_max_b: 10,
-            mul_min_a: 1,
-            mul_max_a: 10,
-            mul_min_b: 1,
-            mul_max_b: 10,
-            time_limit: 60,
+            add_min_a: 2,
+            add_max_a: 100,
+            add_min_b: 2,
+            add_max_b: 100,
+            mul_min_a: 2,
+            mul_max_a: 12,
+            mul_min_b: 2,
+            mul_max_b: 100,
+            time_limit: 120,
         }
     }
 }
@@ -248,6 +248,7 @@ impl App {
             6 => "Multiplication Min B",
             7 => "Multiplication Max B",
             8 => "Time Limit (seconds)",
+            9 => ">>> START TEST <<<",
             _ => "Unknown",
         }
     }
@@ -342,19 +343,18 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> io::Result<
                                     }
                                 }
                                 KeyCode::Down => {
-                                    if app.selected_config_item < 8 {
+                                    if app.selected_config_item < 9 {
                                         app.selected_config_item += 1;
                                     }
                                 }
                                 KeyCode::Enter => {
-                                    if app.selected_config_item == 8 {
+                                    if app.selected_config_item == 9 {
                                         app.start_test();
+                                    } else if app.selected_config_item == 8 {
+                                        app.start_editing();
                                     } else {
                                         app.start_editing();
                                     }
-                                }
-                                KeyCode::Char(' ') => {
-                                    app.start_test();
                                 }
                                 _ => {}
                             }
@@ -411,34 +411,45 @@ fn draw_configuration(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC Arithmetic Test - Configuration")
+    let title = Paragraph::new("ZETAMEC - Configuration")
         .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
     f.render_widget(title, chunks[0]);
 
     let mut config_items = Vec::new();
-    for i in 0..9 {
+    for i in 0..10 {
         let label = app.get_config_label(i);
-        let value = if i == 8 {
-            app.config.time_limit.to_string()
-        } else {
-            app.get_config_value(i).to_string()
-        };
         
-        let display_value = if app.editing_config && app.selected_config_item == i {
-            &app.config_input
+        if i == 9 {
+            // Start button - no value, just the label
+            config_items.push(ListItem::new(Line::from(vec![
+                Span::styled(
+                    label,
+                    Style::default().fg(Color::Green).add_modifier(Modifier::BOLD),
+                ),
+            ])));
         } else {
-            &value
-        };
+            let value = if i == 8 {
+                app.config.time_limit.to_string()
+            } else {
+                app.get_config_value(i).to_string()
+            };
+            
+            let display_value = if app.editing_config && app.selected_config_item == i {
+                &app.config_input
+            } else {
+                &value
+            };
 
-        config_items.push(ListItem::new(Line::from(vec![
-            Span::raw(format!("{}: ", label)),
-            Span::styled(
-                display_value.clone(),
-                Style::default().fg(Color::Yellow),
-            ),
-        ])));
+            config_items.push(ListItem::new(Line::from(vec![
+                Span::raw(format!("{}: ", label)),
+                Span::styled(
+                    display_value.clone(),
+                    Style::default().fg(Color::Yellow),
+                ),
+            ])));
+        }
     }
 
     let config_list = List::new(config_items)
@@ -450,7 +461,7 @@ fn draw_configuration(f: &mut Frame, app: &App) {
     let instructions = if app.editing_config {
         "Type number, Enter: Save, Esc: Cancel"
     } else {
-        "↑/↓: Navigate  Enter: Edit/Start  Space: Start Test  Q: Quit"
+        "↑/↓: Navigate  Enter: Edit/Start  Q: Quit"
     };
     
     let instructions_widget = Paragraph::new(instructions)
@@ -473,7 +484,7 @@ fn draw_testing(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC Arithmetic Test - In Progress")
+    let title = Paragraph::new("ZETAMEC - In Progress")
         .style(Style::default().fg(Color::Green).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
@@ -520,7 +531,7 @@ fn draw_results(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC Arithmetic Test - Results")
+    let title = Paragraph::new("ZETAMEC - Results")
         .style(Style::default().fg(Color::Magenta).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
