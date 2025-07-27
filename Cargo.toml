@@ -1,7 +1,10 @@
 [package]
-name = "zetamec-rs"
+name = "zetamac-rs"
 version = "0.1.0"
 edition = "2024"
+description = "Zetamac timed arithemtic test and pratice"
+license = "MIT"
+repository = "https://github.com/divkov575/zetamac-rs"  # Optional but recommended
 
 [dependencies]
 crossterm = "0.29"

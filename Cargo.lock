@@ -830,7 +830,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "zetamec-rs"
+name = "zetamac-rs"
 version = "0.1.0"
 dependencies = [
  "crossterm 0.29.0",

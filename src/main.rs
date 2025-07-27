@@ -162,7 +162,7 @@ fn draw_configuration(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC - Configuration")
+    let title = Paragraph::new("ZETAMAC - Configuration")
         .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
@@ -235,7 +235,7 @@ fn draw_testing(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC - In Progress")
+    let title = Paragraph::new("ZETAMAC - In Progress")
         .style(Style::default().fg(Color::Green).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
@@ -282,7 +282,7 @@ fn draw_results(f: &mut Frame, app: &App) {
         ])
         .split(f.area());
 
-    let title = Paragraph::new("ZETAMEC - Results")
+    let title = Paragraph::new("ZETAMAC - Results")
         .style(Style::default().fg(Color::Magenta).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
