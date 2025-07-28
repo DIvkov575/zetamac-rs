@@ -1,3 +1,5 @@
+.PHONY: install release-crates-patch release-crates-minor release-crates-major generate-brew-formulae push-brew-formulae release-patch release-minor release-major release
+
 install:
 	cargo install cargo-release
 
@@ -28,6 +30,6 @@ push-brew-formulae:
 
 release-patch: release-crates-patch generate-brew-formulae push-brew-formulae
 release-minor: release-crates-minor generate-brew-formulae push-brew-formulae
-release-major: release-crates-minor generate-brew-formulae push-brew-formulae
+release-major: release-crates-major generate-brew-formulae push-brew-formulae
 
-release: release-crates-minor
+release: release-minor
