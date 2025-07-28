@@ -3,7 +3,7 @@ name = "zetamac-rs"
 version = "0.2.0"
 edition = "2024"
 authors = ["Dmitriy Ivkov<divkov57@mit.edu>"]
-description = "Zetamac timed arithemtic test and pratice"
+description = "Zetamac timed arithmetic test and pratice"
 license = "MIT"
 repository = "https://github.com/divkov575/zetamac-rs"  # Optional but recommended
 
