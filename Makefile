@@ -17,7 +17,4 @@ push-brew-formulae:
 	git commit -am "release version $$VERSION"; \
 	git push
 
-release:
-	release-crates
-	generate-brew-formulae
-	push-brew-formulae
+release: release-crates generate-brew-formulae push-brew-formulae
