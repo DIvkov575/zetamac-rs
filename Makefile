@@ -2,13 +2,13 @@ install:
 	cargo install cargo-release
 
 release-crates-patch:
-	cargo release patch --execute
+	- cargo release patch --execute
 
 release-crates-minor:
-	cargo release minor --execute
+	- cargo release minor --execute
 
 release-crates-major:
-	cargo release minor --execute
+	- cargo release minor --execute
 
 generate-brew-formulae:
 	@VERSION=$$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version'); \
