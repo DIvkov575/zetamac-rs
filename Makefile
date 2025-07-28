@@ -1,18 +1,23 @@
 .PHONY: install release-crates-patch release-crates-minor release-crates-major generate-brew-formulae push-brew-formulae release-patch release-minor release-major release
 
 install:
+	echo "Running install ..."
 	cargo install cargo-release
 
 release-crates-patch:
+	echo "Running release-crates-patch..."
 	- cargo release patch --execute
 
 release-crates-minor:
+	echo "Running release-crates-minor..."
 	- cargo release minor --execute
 
 release-crates-major:
+	echo "Running release-crates-major ..."
 	- cargo release minor --execute
 
 generate-brew-formulae:
+	echo "Running generate-brew-formulae ..."
 	@VERSION=$$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version'); \
 	echo "cargo project version: $$VERSION"; \
 	curl -L -o "zetamac-rs-$$VERSION.tar.gz" "https://github.com/divkov75/zetamac-rs/archive/refs/tags/$$VERSION.tar.gz"; \
@@ -22,6 +27,7 @@ generate-brew-formulae:
 	rm "zetamac-rs-$$VERSION.tar.gz"
 
 push-brew-formulae:
+	echo "Running push-brew-formulae ..."
 	@VERSION=$$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version'); \
 	echo "cargo project version: $$VERSION"; \
 	cd homebrew; \

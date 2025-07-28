@@ -173,7 +173,6 @@ fn draw_configuration(f: &mut Frame, app: &App) {
         let label = app.get_config_label(i);
         
         if i == 9 {
-            // Start button - no value, just the label
             config_items.push(ListItem::new(Line::from(vec![
                 Span::styled(
                     label,
