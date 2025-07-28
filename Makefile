@@ -1,5 +1,14 @@
-release-crates:
-	cargo release minor
+install:
+	cargo install cargo-release
+
+release-crates-patch:
+	cargo release patch --execute
+
+release-crates-minor:
+	cargo release minor --execute
+
+release-crates-major:
+	cargo release minor --execute
 
 generate-brew-formulae:
 	@VERSION=$$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version'); \
@@ -17,4 +26,8 @@ push-brew-formulae:
 	git commit -am "release version $$VERSION"; \
 	git push
 
-release: release-crates generate-brew-formulae push-brew-formulae
+release-patch: release-crates-patch generate-brew-formulae push-brew-formulae
+release-minor: release-crates-minor generate-brew-formulae push-brew-formulae
+release-major: release-crates-minor generate-brew-formulae push-brew-formulae
+
+release: release-crates-minor
