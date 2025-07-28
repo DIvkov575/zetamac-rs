@@ -267,7 +267,8 @@ fn draw_testing(f: &mut Frame, app: &App) {
     let time_gauge = Gauge::default()
         .block(Block::default().borders(Borders::ALL).title("Time Remaining"))
         .gauge_style(Style::default().fg(Color::Green))
-        .ratio(app.time_remaining() as f64 / app.config.time_limit as f64);
+        .ratio(app.time_remaining() as f64 / app.config.time_limit as f64)
+        .label(format!("{}s", app.time_remaining()));
     f.render_widget(time_gauge, chunks[4]);
 }
 
