@@ -163,7 +163,7 @@ fn draw_configuration(f: &mut Frame, app: &App) {
         .split(f.area());
 
     let title = Paragraph::new("ZETAMAC - Configuration")
-        .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
+        .style(Style::default().fg(Color::Gray).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
     f.render_widget(title, chunks[0]);
@@ -177,7 +177,7 @@ fn draw_configuration(f: &mut Frame, app: &App) {
             config_items.push(ListItem::new(Line::from(vec![
                 Span::styled(
                     label,
-                    Style::default().fg(Color::Green).add_modifier(Modifier::BOLD),
+                    Style::default().fg(Color::Gray).add_modifier(Modifier::BOLD),
                 ),
             ])));
         } else {
@@ -197,7 +197,7 @@ fn draw_configuration(f: &mut Frame, app: &App) {
                 Span::raw(format!("{}: ", label)),
                 Span::styled(
                     display_value.clone(),
-                    Style::default().fg(Color::Yellow),
+                    Style::default().fg(Color::Gray),
                 ),
             ])));
         }
@@ -236,7 +236,7 @@ fn draw_testing(f: &mut Frame, app: &App) {
         .split(f.area());
 
     let title = Paragraph::new("ZETAMAC - In Progress")
-        .style(Style::default().fg(Color::Green).add_modifier(Modifier::BOLD))
+        .style(Style::default().fg(Color::Gray).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
     f.render_widget(title, chunks[0]);
@@ -245,20 +245,20 @@ fn draw_testing(f: &mut Frame, app: &App) {
     let score = format!("Questions Answered: {}", app.questions_answered);
     
     let info = Paragraph::new(format!("{} | {}", time_remaining, score))
-        .style(Style::default().fg(Color::White))
+        .style(Style::default().fg(Color::Gray))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
     f.render_widget(info, chunks[1]);
 
     if let Some(question) = &app.current_question {
         let question_text = Paragraph::new(question.display())
-            .style(Style::default().fg(Color::Cyan).add_modifier(Modifier::BOLD))
+            .style(Style::default().fg(Color::Gray).add_modifier(Modifier::BOLD))
             .alignment(Alignment::Center)
             .block(Block::default().borders(Borders::ALL).title("Question"));
         f.render_widget(question_text, chunks[2]);
 
         let answer_input = Paragraph::new(app.user_answer.as_str())
-            .style(Style::default().fg(Color::Yellow))
+            .style(Style::default().fg(Color::Gray))
             .alignment(Alignment::Center)
             .block(Block::default().borders(Borders::ALL).title("Your Answer"));
         f.render_widget(answer_input, chunks[3]);
@@ -266,7 +266,7 @@ fn draw_testing(f: &mut Frame, app: &App) {
 
     let time_gauge = Gauge::default()
         .block(Block::default().borders(Borders::ALL).title("Time Remaining"))
-        .gauge_style(Style::default().fg(Color::Green))
+        .gauge_style(Style::default().fg(Color::Gray))
         .ratio(app.time_remaining() as f64 / app.config.time_limit as f64)
         .label(format!("{}s", app.time_remaining()));
     f.render_widget(time_gauge, chunks[4]);
@@ -284,7 +284,7 @@ fn draw_results(f: &mut Frame, app: &App) {
         .split(f.area());
 
     let title = Paragraph::new("ZETAMAC - Results")
-        .style(Style::default().fg(Color::Magenta).add_modifier(Modifier::BOLD))
+        .style(Style::default().fg(Color::Gray).add_modifier(Modifier::BOLD))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL));
     f.render_widget(title, chunks[0]);
@@ -296,7 +296,7 @@ fn draw_results(f: &mut Frame, app: &App) {
     );
 
     let results = Paragraph::new(results_text)
-        .style(Style::default().fg(Color::White))
+        .style(Style::default().fg(Color::Gray))
         .alignment(Alignment::Center)
         .block(Block::default().borders(Borders::ALL).title("Final Results"));
     f.render_widget(results, chunks[1]);
