@@ -1,7 +1,6 @@
 release-crates:
 	cargo release minor
 
-
 generate-brew-formulae:
 	@VERSION=$$(cargo metadata --no-deps --format-version 1 | jq -r '.packages[0].version'); \
 	echo "cargo project version: $$VERSION"; \
@@ -19,4 +18,6 @@ push-brew-formulae:
 	git push
 
 release:
-	release
+	release-crates
+	generate-brew-formulae
+	push-brew-formulae
