@@ -44,7 +44,7 @@ impl App {
                         self.current_question = Some(Question::new(&self.config));
                     }
                 }
-                 If answer is wrong, keep the input and don't advance
+                // If answer is wrong, keep the input and don't advance
             }
         }
     }
