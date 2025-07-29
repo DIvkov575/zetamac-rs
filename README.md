@@ -7,6 +7,7 @@ Zetamac is a timed drill that tests your arithmetic skills. You have a set amoun
 # Install
 Zetamac can be installed (on Macos) with:
 ```
+brew tap divkov/homebrew-zetamac
 brew install zetamac
 ```
 
